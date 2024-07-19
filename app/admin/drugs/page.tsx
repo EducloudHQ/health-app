@@ -86,7 +86,7 @@ export default function CreateDrug() {
   return (
     <>
     <div>
-    <form onSubmit={handleSubmit(onSubmitlocation)}>
+    {/* <form onSubmit={handleSubmit(onSubmitlocation)}>
       <div>
         <label htmlFor="name">Name</label>
         <input id="name" {...register("name", { required: true })} />
@@ -128,7 +128,7 @@ export default function CreateDrug() {
         </PlacesAutocomplete>
       </div>
       <button type="submit">Submit</button>
-    </form>
+    </form> */}
     </div>
       <div className="bg-white w-full h-16 md:h-20 flex justify-between mb-4 px-4 md:px-7 font-bold">
         <div className="h-full flex items-center">
