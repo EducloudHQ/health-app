@@ -9,12 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^6.1.9",
-    "@aws-sdk/client-bedrock-runtime": "^3.614.0",
+    "@aws-amplify/adapter-nextjs": "^1.2.1",
+    "@aws-amplify/interactions": "^6.0.33",
+    "@aws-amplify/ui-react": "^6.1.12",
+    "@aws-sdk/client-bedrock-runtime": "^3.588.0",
+    "@react-google-maps/api": "^2.19.3",
     "aws-amplify": "^6.2.0",
+    "location-picker": "^1.1.1",
     "next": "13.5.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-hook-form": "^7.52.1",
+    "react-places-autocomplete": "^7.3.0"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.0.0",
@@ -22,9 +28,12 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-places-autocomplete": "^7.2.14",
     "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.39",
-    "tailwindcss": "^3.4.6",
+    "postcss": "^8.4.38",
+    "react-load-script": "^0.0.6",
+    "tailwindcss": "^3.4.3",
     "typescript": "^5.3.2"
   }
 }
+
