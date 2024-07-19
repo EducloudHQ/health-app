@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import "@aws-amplify/ui-react/styles.css";
 import { generateClient } from "aws-amplify/data";
 import { type Schema } from "../../amplify/data/resource";
+import Link from "next/link";
 
 export default function SignUp() {
   const router = useRouter();
@@ -81,149 +82,175 @@ export default function SignUp() {
             objectFit="fit"
           />
         </div>
-        <div className="bg-bl mx-auto my-auto flex w-full h-full">
-          <div className="w-[80%] md:w-[60%] sm:w-[70%] mx-auto my-auto">
-            <div>
-              <h2 className="text-2xl my-4">Create user account</h2>
-            </div>
+        <div className="w-full">
+          <div className="flex w-full bg-white p-4 -mb-10">
+            <Link
+              href={"/"}
+              className="rounded-full border border-gray-300 bg-gray-200 p-2 hover:cursor-pointer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+              >
+                <path fill="currentColor" d="M13 19L2 12l11-7v6h9v2h-9z" />
+              </svg>
+            </Link>
+            <div></div>
+          </div>
+          <div className="bg-bl mx-auto my-auto flex w-full h-full">
+            <div className="w-[80%] md:w-[60%] sm:w-[70%] mx-auto my-auto">
+              <div>
+                <h2 className="text-2xl my-4">Create user account</h2>
+              </div>
 
-            <div className={isError ? "flex text-red-500 pb-4" : "hidden"}>
-              <h4>{errorMessage}</h4>
-            </div>
+              <div className={isError ? "flex text-red-500 pb-4" : "hidden"}>
+                <h4>{errorMessage}</h4>
+              </div>
 
-            <form onSubmit={onSubmit}>
-              <div className="flex flex-col w-full mb-2">
-                <label>Name</label>
-                <input
-                  type="text"
-                  disabled={isLoading}
-                  name="username"
-                  className="h-9 border rounded-lg px-4 w-full"
-                />
-              </div>
-              <div className="flex flex-col mb-2">
-                <label>Email</label>
-                <input
-                  type="text"
-                  disabled={isLoading}
-                  name="email"
-                  className="h-9 border rounded-lg px-4 w-full"
-                />
-              </div>
-              <div className="flex flex-col mb-2">
-                <label>Phone Number</label>
-                <input
-                  type="text"
-                  disabled={isLoading}
-                  name="phoneNumber"
-                  className="h-9 border rounded-lg px-4 w-full"
-                />
-              </div>
-              <div className="flex flex-col mb-2">
-                <label>Password</label>
-                <input
-                  type="text"
-                  disabled={isLoading}
-                  name="password"
-                  className="h-9 w-full border rounded-lg px-4"
-                />
-              </div>
-              <div className="flex flex-col mb-2">
-                <label>Confirm Password</label>
-                <input
-                  type="text"
-                  name="confirmPassword"
-                  disabled={isLoading}
-                  className="h-9 w-full border rounded-lg px-4"
-                />
-              </div>
-              {isLoading ? (
-                <button
-                  disabled
-                  className="w-full flex justify-center gap-2 mt-4 bg-blue-300 text-white h-9 rounded-lg"
-                >
-                  <p className="my-auto">Loading...</p>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    className="my-auto"
+              <form onSubmit={onSubmit}>
+                <div className="flex flex-col w-full mb-2">
+                  <label>Name</label>
+                  <input
+                    type="text"
+                    disabled={isLoading}
+                    name="username"
+                    className="h-9 border rounded-lg px-4 w-full"
+                  />
+                </div>
+                <div className="flex flex-col mb-2">
+                  <label>Email</label>
+                  <input
+                    type="text"
+                    disabled={isLoading}
+                    name="email"
+                    className="h-9 border rounded-lg px-4 w-full"
+                  />
+                </div>
+                <div className="flex flex-col mb-2">
+                  <label>Phone Number</label>
+                  <input
+                    type="text"
+                    disabled={isLoading}
+                    name="phoneNumber"
+                    className="h-9 border rounded-lg px-4 w-full"
+                  />
+                </div>
+                <div className="flex flex-col mb-2">
+                  <label>Password</label>
+                  <input
+                    type="text"
+                    disabled={isLoading}
+                    name="password"
+                    className="h-9 w-full border rounded-lg px-4"
+                  />
+                </div>
+                <div className="flex flex-col mb-2">
+                  <label>Confirm Password</label>
+                  <input
+                    type="text"
+                    name="confirmPassword"
+                    disabled={isLoading}
+                    className="h-9 w-full border rounded-lg px-4"
+                  />
+                </div>
+                {isLoading ? (
+                  <button
+                    disabled
+                    className="w-full flex justify-center gap-2 mt-4 bg-blue-300 text-white h-9 rounded-lg"
                   >
-                    <circle cx="12" cy="12" r="0" fill="currentColor">
-                      <animate
-                        id="svgSpinnersPulseMultiple0"
-                        fill="freeze"
-                        attributeName="r"
-                        begin="0;svgSpinnersPulseMultiple2.end"
-                        calcMode="spline"
-                        dur="1.2s"
-                        keySplines=".52,.6,.25,.99"
-                        values="0;11"
-                      />
-                      <animate
-                        fill="freeze"
-                        attributeName="opacity"
-                        begin="0;svgSpinnersPulseMultiple2.end"
-                        calcMode="spline"
-                        dur="1.2s"
-                        keySplines=".52,.6,.25,.99"
-                        values="1;0"
-                      />
-                    </circle>
-                    <circle cx="12" cy="12" r="0" fill="currentColor">
-                      <animate
-                        id="svgSpinnersPulseMultiple1"
-                        fill="freeze"
-                        attributeName="r"
-                        begin="svgSpinnersPulseMultiple0.begin+0.2s"
-                        calcMode="spline"
-                        dur="1.2s"
-                        keySplines=".52,.6,.25,.99"
-                        values="0;11"
-                      />
-                      <animate
-                        fill="freeze"
-                        attributeName="opacity"
-                        begin="svgSpinnersPulseMultiple0.begin+0.2s"
-                        calcMode="spline"
-                        dur="1.2s"
-                        keySplines=".52,.6,.25,.99"
-                        values="1;0"
-                      />
-                    </circle>
-                    <circle cx="12" cy="12" r="0" fill="currentColor">
-                      <animate
-                        id="svgSpinnersPulseMultiple2"
-                        fill="freeze"
-                        attributeName="r"
-                        begin="svgSpinnersPulseMultiple0.begin+0.4s"
-                        calcMode="spline"
-                        dur="1.2s"
-                        keySplines=".52,.6,.25,.99"
-                        values="0;11"
-                      />
-                      <animate
-                        fill="freeze"
-                        attributeName="opacity"
-                        begin="svgSpinnersPulseMultiple0.begin+0.4s"
-                        calcMode="spline"
-                        dur="1.2s"
-                        keySplines=".52,.6,.25,.99"
-                        values="1;0"
-                      />
-                    </circle>
-                  </svg>
-                </button>
-              ) : (
-                <button
-                  type="submit"
-                  className="w-full flex justify-center gap-2 mt-4 bg-blue-500 text-white h-9 rounded-lg"
-                >
-                  <p className="my-auto">Register</p>
-                </button>
-              )}
-            </form>
+                    <p className="my-auto">Loading...</p>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      className="my-auto"
+                    >
+                      <circle cx="12" cy="12" r="0" fill="currentColor">
+                        <animate
+                          id="svgSpinnersPulseMultiple0"
+                          fill="freeze"
+                          attributeName="r"
+                          begin="0;svgSpinnersPulseMultiple2.end"
+                          calcMode="spline"
+                          dur="1.2s"
+                          keySplines=".52,.6,.25,.99"
+                          values="0;11"
+                        />
+                        <animate
+                          fill="freeze"
+                          attributeName="opacity"
+                          begin="0;svgSpinnersPulseMultiple2.end"
+                          calcMode="spline"
+                          dur="1.2s"
+                          keySplines=".52,.6,.25,.99"
+                          values="1;0"
+                        />
+                      </circle>
+                      <circle cx="12" cy="12" r="0" fill="currentColor">
+                        <animate
+                          id="svgSpinnersPulseMultiple1"
+                          fill="freeze"
+                          attributeName="r"
+                          begin="svgSpinnersPulseMultiple0.begin+0.2s"
+                          calcMode="spline"
+                          dur="1.2s"
+                          keySplines=".52,.6,.25,.99"
+                          values="0;11"
+                        />
+                        <animate
+                          fill="freeze"
+                          attributeName="opacity"
+                          begin="svgSpinnersPulseMultiple0.begin+0.2s"
+                          calcMode="spline"
+                          dur="1.2s"
+                          keySplines=".52,.6,.25,.99"
+                          values="1;0"
+                        />
+                      </circle>
+                      <circle cx="12" cy="12" r="0" fill="currentColor">
+                        <animate
+                          id="svgSpinnersPulseMultiple2"
+                          fill="freeze"
+                          attributeName="r"
+                          begin="svgSpinnersPulseMultiple0.begin+0.4s"
+                          calcMode="spline"
+                          dur="1.2s"
+                          keySplines=".52,.6,.25,.99"
+                          values="0;11"
+                        />
+                        <animate
+                          fill="freeze"
+                          attributeName="opacity"
+                          begin="svgSpinnersPulseMultiple0.begin+0.4s"
+                          calcMode="spline"
+                          dur="1.2s"
+                          keySplines=".52,.6,.25,.99"
+                          values="1;0"
+                        />
+                      </circle>
+                    </svg>
+                  </button>
+                ) : (
+                  <>
+                    <button
+                      type="submit"
+                      className="w-full flex justify-center gap-2 mt-4 bg-blue-500 text-white h-9 rounded-lg"
+                    >
+                      <p className="my-auto">Register</p>
+                    </button>
+                    <div className="flex text-center w-full pt-5">
+                      <p className="pr-1">Already have an account?</p>
+                      <Link className="text-blue-500" href={"/signin"}>
+                        Sign In
+                      </Link>
+                    </div>
+                  </>
+                )}
+              </form>
+            </div>
           </div>
         </div>
       </div>

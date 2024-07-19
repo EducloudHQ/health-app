@@ -32,7 +32,7 @@ export default function ConfirmSignUp() {
         confirmationCode: confirmationCode,
       });
       if (res.isSignUpComplete) {
-        router.replace("/home");
+        router.replace("/signin");
       }
       console.log(res);
     } catch (err: any) {
@@ -46,7 +46,7 @@ export default function ConfirmSignUp() {
   return (
     <div className="w-screen h-screen">
       <div className="flex justify-between  w-full h-full">
-        <div className="hidden sm:flex sm:text-xl sm:bg-green-400/10 sm:mx-auto sm:my-auto sm:w-full sm:h-full">
+        <div className="hidden sm:flex sm:text-xl sm:bg-blue-400/10 sm:mx-auto sm:my-auto sm:w-full sm:h-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="32"
@@ -99,7 +99,7 @@ export default function ConfirmSignUp() {
               {isLoading ? (
                 <button
                   disabled
-                  className="w-full flex justify-center gap-2 mt-4 bg-green-300 text-white h-9 rounded-lg"
+                  className="w-full flex justify-center gap-2 mt-4 bg-blue-300 text-white h-9 rounded-lg"
                 >
                   <p className="my-auto">Loading...</p>
                   <svg
@@ -177,7 +177,7 @@ export default function ConfirmSignUp() {
               ) : (
                 <button
                   type="submit"
-                  className="w-full flex justify-center gap-2 mt-4 bg-green-500 text-white h-9 rounded-lg"
+                  className="w-full flex justify-center gap-2 mt-4 bg-blue-500 text-white h-9 rounded-lg"
                 >
                   <p className="my-auto">Register</p>
                 </button>

@@ -1,40 +1,58 @@
 "use client";
 
 import React from "react";
-import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 const Footer = () => {
   return (
-    <footer className="flex flex-col text-black-100 mt-5 border-t bg-blue-100 border-gray-100">
-      <div
-        className="flex max-md:flex-col flex-wrap
-           justify-between gap-5 px-6 py-10 sm:px-16"
-      >
-        <div className="flex flex-col justify-start items-start gap-6">
-          <Image
-            src="amplify.svg"
-            alt="logo"
-            width={30}
-            height={10}
-            className="object-contain"
-          />
-          <p className="text-base text-gray-700">
-            HIS 2024 <br /> All rights reserved &copy;
-          </p>
+    <footer className="shadow bg-blue-100 border-gray-100 dark:bg-gray-900 mt-4">
+      <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+        <div className="sm:flex sm:items-center sm:justify-between">
+          <a
+            href="/"
+            className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
+          >
+            <Image
+              src="amplify.svg"
+              alt="logo"
+              width={30}
+              height={10}
+              className=""
+            />
+            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+              Health info
+            </span>
+          </a>
+          <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+            <li>
+              <a href="#" className="hover:underline me-4 md:me-6">
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline me-4 md:me-6">
+                Pharmacies
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline me-4 md:me-6">
+                Shop
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">
+                Chat with AI
+              </a>
+            </li>
+          </ul>
         </div>
-      </div>
-
-      <div className="flex items-center flex-wrap mt-10 border-t border-gray-100 justify-between sm:px-16 px-6 py-10">
-        <p>@2023 HIS All rights reserved</p>
-        <div className="footer__copyrights-link">
-          <Link href="/" className="text-gray-500">
-            Privacy Policy
-          </Link>
-          <Link href="/home" className="text-gray-500">
-            Terms of use
-          </Link>
-        </div>
+        <hr className="my-6 border-white sm:mx-auto  lg:my-8" />
+        <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
+          {new Date().getFullYear()}{" "}
+          <a href="/" className="hover:underline">
+            Health info
+          </a>
+          . All Rights Reserved.
+        </span>
       </div>
     </footer>
   );

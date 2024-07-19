@@ -32,10 +32,6 @@ export default function UserModal({ cardData }: CardProps) {
         </div>
       </div>
 
-      <div className="flex">
-        {/* <div className="h-[50px] w-[4px] bg-white rounded-full absolute left-[49.5%] bottom-0.5"> </div> */}
-      </div>
-
       <div className="mt-8">
         <button
           onClick={handleSignOut}
