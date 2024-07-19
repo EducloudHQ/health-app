@@ -1,4 +1,4 @@
-import PharmacyPage from "@/components/pages/pharmacyPage";
+import PharmacyPage from "@/components/pharmacyPage";
 
 export default function Pharmacy() {
   return (

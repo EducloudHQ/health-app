@@ -32,7 +32,7 @@ export default function ConfirmSignUp() {
         confirmationCode: confirmationCode,
       });
       if (res.isSignUpComplete) {
-        router.replace("/signin");
+        router.replace("/home");
       }
       console.log(res);
     } catch (err: any) {

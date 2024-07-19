@@ -2,67 +2,66 @@
 
 import { signOut } from "aws-amplify/auth";
 import { useRouter } from "next/navigation";
-import NavBar from "@/components/common-components/navbar";
+import NavBar from "@/components/navbar";
 import Link from "next/link";
 import FeatureCard from "@/components/featurCard";
 import Footer from "@/components/footer";
 import { useEffect, useState } from "react";
 import { generateClient } from "aws-amplify/data";
 import { type Schema } from "@/amplify/data/resource";
-import CardTwo from "../cardTwo";
-import ImageCard from "../imageCard";
+import CardTwo from "./cardTwo";
+import ImageCard from "./imageCard";
 import Script from "next/script";
 
-export default function HealthUnitPage() {
+export default function PharmacyPage() {
   const client = generateClient<Schema>();
   const router = useRouter();
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
-  const [pharmacies, setPharmacies] = useState<
-    Array<Schema["HealthCareProvider"]["type"]>
-  >([]);
+  const [pharmacies, setPharmacies] = useState<Array<Schema["Pharmacy"]["type"]>>([]);
   const [nearPharms, setNearPharms]: any = useState([]);
 
   useEffect(() => {
     getAllPharmacies();
-    console.log(pharmacies);
-    pharmacies.map((p: any) => {
-      if (p.location?.lat - 4 > 2) {
-        console.log(p.location.lat);
-        // setNearPharms([...nearPharms, p])
-      } else {
-        console.log("not near", p.location.lat);
-      }
-    });
+    console.log(pharmacies)
+          pharmacies.map((p: any)=>{
+            if(p.location?.lat - 4 > 2 ){
+              console.log(p.location.lat)
+              // setNearPharms([...nearPharms, p])
+            }else{
+              console.log("not near", p.location.lat)
+            }
+          })
   }, []);
   const getAllPharmacies = async () => {
     // console.log("getting all pharmacies")
     try {
-      client.models.HealthCareProvider.observeQuery().subscribe({
+      client.models.Pharmacy.observeQuery().subscribe({
         next: (data) => setPharmacies([...data.items]),
       });
+      
     } catch (err) {
       console.log(err);
     }
   };
 
-  const getNearByPharmacies = async () => {
-    // console.log("getting all pharmacies")
-    try {
-      const res = await client.models.Pharmacy.list({
-        filter: {
-          and: [
-            {
-              location: { eq: "1" },
-            },
-          ],
-        },
-      });
-      //   setPharmacies(res.data)
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const getNearByPharmacies = async () =>{
+      // console.log("getting all pharmacies")
+      try{
+          const res = await client.models.Pharmacy.list({
+              filter:{
+                  and: [
+                      {
+                          location: { eq: '1' }
+                      }
+                  ]
+              }
+          });
+          setPharmacies(res.data)
+      }catch(err){
+          console.log(err)
+      }
+  }
   const handleSignOut = async () => {
     await signOut();
     router.replace("/signin");
@@ -90,9 +89,14 @@ export default function HealthUnitPage() {
                `}
       </Script>
       <div className="bg-blue-100/40 pt-4">
-        <input className="hidden" type="number" id="id1" name="lat" />
-        <input className="hidden" type="number" id="id2" name="lng" />
+        <input type="number" id="id1" name="lat" />
+        <input type="number" id="id2" name="lng" />
         <div className="h-full w-full">
+          <div className="h-full w-full bg-blur sticky top-5 z-50">
+            <div className="mx-auto bg-white/40 w-[85%] border shadow shadow-lg rounded-full">
+              <NavBar />
+            </div>
+          </div>
           <div className="h-[70%]">
             <div className=" my-auto sm:flex w-full px-4 sm:px-20 justify-between gap-4">
               <div className="mt-16 mx-auto">
@@ -124,7 +128,7 @@ export default function HealthUnitPage() {
             </div>
             <div className="h-10 bg-gradient-to-b from-blue-100/10 to-white"></div>
 
-            {/* <div className="bg-white px-4 sm:px-24 sm:flex gap-3 justify-between">
+            <div className="bg-white px-4 sm:px-24 sm:flex gap-3 justify-between">
               <ImageCard
                 cardData={{
                   title: "Health Care Providers",
@@ -144,7 +148,7 @@ export default function HealthUnitPage() {
                   image: "/pharm.png",
                 }}
               />
-            </div> */}
+            </div>
             <div className="h-screen w-screen bg-white pt-20">
               <div className="flex pb-12">
                 <div className="mx-auto">
@@ -162,24 +166,23 @@ export default function HealthUnitPage() {
                 <button>get near by</button>
               </div> */}
               <div className=" px-1 sm:px-24 pt-10 flex flex-wrap justify-evenly gap-3">
-                {pharmacies.map(
-                  (pharm: any) => (
-                    // pharm.location?.lat - 4 > 2 ? (
+                {pharmacies.map((pharm: any) =>
+                  // pharm.location?.lat - 4 > 2 ? (
                     <FeatureCard
                       key={pharm.id}
                       cardData={{
                         title: pharm.name,
                         description: pharm.description,
                         url: "",
-                        image: pharm.imageUrl ? pharm.imageUrl : "/pharm.png",
+                        image: pharm.imageUrl?pharm.imageUrl:"/pharm.png",
                       }}
                     />
-                  )
                   // ) : (
                   //   <div></div>
                   // )
                 )}
               </div>
+              <Footer/>
             </div>
           </div>
         </div>

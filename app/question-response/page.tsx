@@ -1,4 +1,4 @@
-import QuestionResponse from "@/components/pages/question-response";
+import QuestionResponse from "@/components/question-response";
 
 export default function Pharmacy() {
   return (
