@@ -9,7 +9,7 @@ import {  useEffect, useState } from "react";
 
 export default function Pharmacy() {
   const client = generateClient<Schema>();
-  const [drugs, setDrugs] = useState([]);
+  const [drugs, setDrugs]: any = useState([]);
 
   useEffect(() => {
     getAllDrugs();

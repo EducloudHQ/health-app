@@ -81,8 +81,8 @@ export default function PharmacyPage() {
       <NavBar />
       <div className="-mt-14 pt-4">
         <div className="h-full w-full">
-        <input type="text" value="" id="id1" />
-          <input type="text" value="" id="id2" />
+        <input type="text" value="" id="id1" className="hidden"/>
+          <input type="text" value="" id="id2" className="hidden"/>
           <div className="">
             <div className="px-4 my-auto flex w-full h-[65vh] md:h-[70vh] -mt-4 bg-blue-100/40">
               <div className="mt-32 md:mt-40 mx-auto  text-center">
