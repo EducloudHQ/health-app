@@ -63,17 +63,17 @@ export default function PharmacyPage() {
     <>
       <Script id="show-banner">
         {`
-                    let lat;
-                    let lng;
+                    let clat;
+                    let clng;
                     if(navigator.geolocation){
                         navigator.geolocation.getCurrentPosition((position)=>{
-                            lat = position.coords.latitude;
-                            lng = position.coords.longitude;
+                            clat = position.coords.latitude;
+                            clng = position.coords.longitude;
                             let inputF = document.getElementById("id1");
-                            inputF.value = lat;
+                            inputF.value = clat;
 
                             let inputF2 = document.getElementById("id2");
-                            inputF2.value = lng;
+                            inputF2.value = clng;
                         })
                     }
                `}
@@ -81,6 +81,8 @@ export default function PharmacyPage() {
       <NavBar />
       <div className="-mt-14 pt-4">
         <div className="h-full w-full">
+        <input type="text" value="" id="id1" />
+          <input type="text" value="" id="id2" />
           <div className="">
             <div className="px-4 my-auto flex w-full h-[65vh] md:h-[70vh] -mt-4 bg-blue-100/40">
               <div className="mt-32 md:mt-40 mx-auto  text-center">

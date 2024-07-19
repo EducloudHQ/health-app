@@ -64,16 +64,22 @@ export default function CreateDrug() {
     setIsLoading(true);
     saveImage();
     const formData = new FormData(event.currentTarget);
+    console.log(formData)
     const name = formData.get("name")?.toString()!;
     const description = formData.get("description")?.toString()!;
-
+    const pharmcyId = formData.get("pharmacyId")?.toString()!;
+    const drugId = uuidv4();
     try {
       const result = await client.models.Drug.create({
         name: name,
         description: description,
         imageUrl: url,
-        drugId: uuidv4(),
+        drugId: drugId,
       });
+      await client.models.PharmacyDrug.create({
+        pharmacyId: pharmcyId,
+        drugId: drugId
+      })
       setIsLoading(false);
     } catch (err: any) {
       console.log(err);
@@ -185,6 +191,7 @@ export default function CreateDrug() {
              className="block mb-2 text-sm font-medium text-gray-900">Pharmacy</label>
               
               <select 
+                  name="pharmacyId"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5  "
              >
                 {pharmacies.map((p: any)=><option value={p.id}>{p.name}</option>)}
