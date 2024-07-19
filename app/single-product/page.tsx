@@ -9,7 +9,6 @@ export default function Pharmacy() {
   const searchParams = useSearchParams()
   const name = searchParams.get('name')
   const des = searchParams.get('des')
-  const img = searchParams.get('img')
   return (
     <>
       <Navbar />
@@ -20,11 +19,7 @@ export default function Pharmacy() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mx-auto max-md:px-2 ">
             <div className="img">
               <div className="img-box h-full max-lg:mx-auto ">
-                <img
-                  src={img}
-                  alt="Yellow Tropical Printed Shirt image"
-                  className="max-lg:mx-auto lg:ml-auto h-full"
-                />
+                
               </div>
             </div>
             <div className="data w-full lg:pr-8 pr-0 xl:justify-start justify-center flex items-center max-lg:pb-10 xl:my-1 lg:my-3 my-0">
