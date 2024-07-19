@@ -77,27 +77,8 @@ function PartnersCarousel() {
 export default function HomePage() {
   const client = generateClient<Schema>();
   const router = useRouter();
-
-  // const userInput = "Book hotel";
-
-  // Provide a bot name and user input
-  // const response = async()=>{
-  //    const res =  await Interactions.send({
-  //         botName: "HotelBooking",
-  //         message: userInput
-  //     });
-
-  //     console.log(res.message)
-  // }
-
-  // Log chatbot response
-  // console.log(response.message);
   useEffect(() => {
     list();
-    // response()
-    // if(!localStorage.getItem('user')){
-    //     router.replace('/signin')
-    // }
   });
   const list = async () => {
     try {

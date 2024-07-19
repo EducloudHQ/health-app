@@ -25,6 +25,7 @@ export default function Pharmacy() {
   return (
     <>
       <Navbar />
+      <script type="text/javascript" src="/script.js"></script>
 
       <div className="w-full flex justify-center mt-14 px-4 sm:px-6 lg:px-8">
         <div className="bg-blue-50 min-h-52 w-full max-w-screen-xl flex justify-center text-center items-center rounded-md">
@@ -40,7 +41,14 @@ export default function Pharmacy() {
               Available Drugs
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:grid-cols-3  xl:grid-cols-4">
-              {drugs.map((d:any)=><Link href="/single-product" className="mx-auto max-w-[384px]">
+              {drugs.map((d:any)=><Link href={{
+                pathname:"/single-product",
+                query: {
+                  name: d.name,
+                  des: d.description,
+                  img: d.imageUrl
+              }
+               }} className="mx-auto max-w-[384px]">
                 <div className="aspect-square w-full max-w-sm">
                   <img
                     src={d.imageUrl}
