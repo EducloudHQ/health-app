@@ -127,7 +127,7 @@ export default function PharmacyPage() {
                   >
                     <div className="">
                       <img
-                        src="https://pagedone.io/asset/uploads/1701157844.png"
+                        src={pharmacy.imageUrl}
                         alt=" image"
                         className="w-full aspect-square"
                       />

@@ -26,6 +26,20 @@ export default function CreateDrug() {
   const [url, setUrl] = useState("");
 
   const [file, setFile]: any = useState();
+  const [pharmacies, setPharmacies]: any = useState([]);
+
+  useEffect(() => {
+    getAllPharmacies();
+  }, []);
+  const getAllPharmacies = async () => {
+    try {
+      const pharms = await client.models.Pharmacy.list();
+      console.log(pharms.data)
+      setPharmacies(pharms.data)
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleChange = (event: any) => {
     setFile(event.target.files[0]);
@@ -165,6 +179,16 @@ export default function CreateDrug() {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5  "
              
                 />
+              </div>
+              <div>
+              <label 
+             className="block mb-2 text-sm font-medium text-gray-900">Pharmacy</label>
+              
+              <select 
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5  "
+             >
+                {pharmacies.map((p: any)=><option value={p.id}>{p.name}</option>)}
+              </select>
               </div>
               <div className="flex flex-col w-full mb-2">
                 <label 
