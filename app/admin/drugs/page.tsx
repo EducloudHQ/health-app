@@ -62,13 +62,29 @@ export default function CreateDrug() {
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-    saveImage();
     const formData = new FormData(event.currentTarget);
     console.log(formData)
     const name = formData.get("name")?.toString()!;
     const description = formData.get("description")?.toString()!;
     const pharmcyId = formData.get("pharmacyId")?.toString()!;
     const drugId = uuidv4();
+
+    try{
+      await uploadData({
+        path: `pictures/${file.name}`,
+        data: file,
+      }).result
+    }catch(err:any){
+      console.log(err)
+      setIsError(true);
+      setIsLoading(false);
+      setErrorMessage(err.message);
+    }
+
+    const dUrl = await getUrl({
+      path: `pictures/${file.name}`
+    });
+    setUrl(dUrl.url.href)
     try {
       const result = await client.models.Drug.create({
         name: name,
