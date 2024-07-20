@@ -10,7 +10,7 @@ import {  useEffect, useState } from "react";
 export default function Pharmacy() {
   const client = generateClient<Schema>();
   const [drugs, setDrugs]: any = useState([]);
-  const [isLoading, setIsLoading] = useState([true])
+  const [isLoading, setIsLoading] = useState(true)
 
   const bucketName = "https://amplify-d2yrv03l6hwvow-ma-amplifyteamdrivebucket28-ts944jk2zo40.s3.amazonaws.com/pictures"
   
