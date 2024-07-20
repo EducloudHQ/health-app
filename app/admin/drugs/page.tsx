@@ -85,6 +85,7 @@ export default function CreateDrug() {
       path: `pictures/${file.name}`
     });
     setUrl(dUrl.url.href)
+    console.log(url)
     try {
       const result = await client.models.Drug.create({
         name: name,
