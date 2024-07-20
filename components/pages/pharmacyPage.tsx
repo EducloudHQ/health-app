@@ -20,6 +20,8 @@ export default function PharmacyPage() {
   const [lng, setLng] = useState(0);
   const [pharmacies, setPharmacies]: any = useState([]);
   const [nearPharms, setNearPharms]: any = useState([]);
+  const bucketName = "https://amplify-d2yrv03l6hwvow-ma-amplifyteamdrivebucket28-ts944jk2zo40.s3.amazonaws.com/pictures"
+  
 
   useEffect(() => {
     getAllPharmacies();
@@ -124,12 +126,12 @@ export default function PharmacyPage() {
                   
                   {
                     pharmacies.length>0?pharmacies.map((pharmacy: any)=><Link
-                    href="/shop"
+                    href={`/pharmacy/${pharmacy.id}`}
                     className="mx-auto sm:mr-0 group cursor-pointer lg:mx-auto bg-white transition-all duration-500"
                   >
                     <div className="">
                       <img
-                        src={pharmacy.imageUrl}
+                      src={`${bucketName}/${pharmacy.imageUrl}`}
                         alt=" image"
                         className="w-full aspect-square"
                       />

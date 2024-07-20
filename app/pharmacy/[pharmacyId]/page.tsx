@@ -4,23 +4,35 @@ import Navbar from "@/components/common-components/navbar";
 import Footer from "@/components/footer";
 import Link from "next/link";
 import { generateClient } from "aws-amplify/data";
-import { type Schema } from "../../amplify/data/resource";
+import { type Schema } from "../../../amplify/data/resource";
 import {  useEffect, useState } from "react";
+import { data } from "@/amplify/datads/resource";
 
-export default function Pharmacy() {
+export default function Pharmacy({params}: any) {
   const client = generateClient<Schema>();
   const [drugs, setDrugs]: any = useState([]);
-
+  const [pharmacy, setPharmacy]: any = useState({})
   const bucketName = "https://amplify-d2yrv03l6hwvow-ma-amplifyteamdrivebucket28-ts944jk2zo40.s3.amazonaws.com/pictures"
-  
+
 
   useEffect(() => {
     getAllDrugs();
   }, []);
   const getAllDrugs = async () => {
     try {
-      const drugs = await client.models.Drug.list();
-      setDrugs(drugs.data)
+      const drugs1 = await client.models.Drug.list({
+        filter:{
+          pharmacyId: {
+            eq: params.pharmacyId
+          }
+        }
+      })
+      setDrugs(drugs1.data)
+      
+      const pharmRes = await client.models.Pharmacy.get({
+        id: params.pharmacyId,
+      });
+      setPharmacy(pharmRes.data)
     } catch (err) {
       console.log(err);
     }
@@ -33,7 +45,7 @@ export default function Pharmacy() {
       <div className="w-full flex justify-center mt-14 px-4 sm:px-6 lg:px-8">
         <div className="bg-blue-50 min-h-52 w-full max-w-screen-xl flex justify-center text-center items-center rounded-md">
           <h2 className="font-manrope text-2xl font-bold text-black px-4 min-[400px]:text-4xl">
-            Grab upto 50% off on the selected drugs
+             {pharmacy?.name}
           </h2>
         </div>
       </div>

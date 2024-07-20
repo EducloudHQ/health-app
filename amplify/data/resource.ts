@@ -53,7 +53,7 @@ const schema = a.schema({
       name: a.string(),
       description: a.string(),
       imageUrl: a.string(),
-      pharmacies: a.hasMany("PharmacyDrug", "drugId"),
+      pharmacyId: a.string(),
     })
     .authorization((allow) => [
       allow.owner(),
@@ -67,24 +67,11 @@ const schema = a.schema({
       description: a.string(),
       location: a.ref("Location"),
       imageUrl: a.string(),
-      drugs: a.hasMany("PharmacyDrug", "pharmacyId"),
       healthCareProviderId: a.id(),
       healthCareProvider: a.belongsTo(
         "HealthCareProvider",
         "healthCareProviderId"
       ),
-    })
-    .authorization((allow) => [
-      allow.authenticated().to(["read"]),
-      allow.owner(),
-    ]),
-
-  PharmacyDrug: a
-    .model({
-      pharmacyId: a.id().required(),
-      drugId: a.id().required(),
-      pharmacy: a.belongsTo("Pharmacy", "pharmacyId"),
-      drug: a.belongsTo("Drug", "drugId"),
     })
     .authorization((allow) => [
       allow.authenticated().to(["read"]),
@@ -121,17 +108,6 @@ const schema = a.schema({
       allow.owner(),
     ]),
 
-  FirstAide: a
-    .model({
-      firstAideId: a.string(),
-      title: a.string(),
-      imageUrl: a.string(),
-      description: a.string(),
-    })
-    .authorization((allow) => [
-      allow.authenticated().to(["read"]),
-      allow.owner(),
-    ]),
 });
 
 export type Schema = ClientSchema<typeof schema>;

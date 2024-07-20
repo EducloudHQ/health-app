@@ -70,33 +70,31 @@ export default function CreateDrug() {
     const drugId = uuidv4();
 
     try{
-      await uploadData({
+     const t =  await uploadData({
         path: `pictures/${file.name}`,
         data: file,
       }).result
+
+    console.log(t)
     }catch(err:any){
       console.log(err)
       setIsError(true);
       setIsLoading(false);
       setErrorMessage(err.message);
     }
-
+    
     const dUrl = await getUrl({
       path: `pictures/${file.name}`
     });
     setUrl(dUrl.url.href)
-    console.log(url)
     try {
       const result = await client.models.Drug.create({
         name: name,
         description: description,
-        imageUrl: dUrl.url.href,
+        imageUrl: `${file.name}`,
         drugId: drugId,
-      });
-      await client.models.PharmacyDrug.create({
         pharmacyId: pharmcyId,
-        drugId: drugId
-      })
+      });
       setIsLoading(false);
     } catch (err: any) {
       console.log(err);
