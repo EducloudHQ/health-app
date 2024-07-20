@@ -90,7 +90,7 @@ export default function CreateDrug() {
       const result = await client.models.Drug.create({
         name: name,
         description: description,
-        imageUrl: url,
+        imageUrl: dUrl.url.href,
         drugId: drugId,
       });
       await client.models.PharmacyDrug.create({
