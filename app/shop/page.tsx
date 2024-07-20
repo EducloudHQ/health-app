@@ -10,6 +10,7 @@ import {  useEffect, useState } from "react";
 export default function Pharmacy() {
   const client = generateClient<Schema>();
   const [drugs, setDrugs]: any = useState([]);
+  const [isLoading, setIsLoading] = useState([true])
 
   const bucketName = "https://amplify-d2yrv03l6hwvow-ma-amplifyteamdrivebucket28-ts944jk2zo40.s3.amazonaws.com/pictures"
   
@@ -21,8 +22,10 @@ export default function Pharmacy() {
     try {
       const drugs = await client.models.Drug.list();
       setDrugs(drugs.data)
+      setIsLoading(false)
     } catch (err) {
       console.log(err);
+      setIsLoading(false)
     }
   };
   return (
@@ -43,6 +46,9 @@ export default function Pharmacy() {
             <h2 className="font-manrope mb-8 text-3xl font-bold text-black max-lg:text-center min-[400px]:text-4xl">
               Available Drugs
             </h2>
+            {isLoading?<div className="flex items-center justify-center w-[100%] text-blue-500">
+              <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 24 24"><g><rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".14"/><rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".29" transform="rotate(30 12 12)"/><rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".43" transform="rotate(60 12 12)"/><rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".57" transform="rotate(90 12 12)"/><rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".71" transform="rotate(120 12 12)"/><rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".86" transform="rotate(150 12 12)"/><rect width="2" height="5" x="11" y="1" fill="currentColor" transform="rotate(180 12 12)"/><animateTransform attributeName="transform" calcMode="discrete" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;30 12 12;60 12 12;90 12 12;120 12 12;150 12 12;180 12 12;210 12 12;240 12 12;270 12 12;300 12 12;330 12 12;360 12 12"/></g></svg>
+              </div>:
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:grid-cols-3  xl:grid-cols-4">
               {drugs.map((d:any)=><Link href={{
                 pathname:"/single-product",
@@ -67,7 +73,7 @@ export default function Pharmacy() {
                   </div>
                 </div>
               </Link>)}
-            </div>
+            </div>}
           </div>
         </section>
       </div>

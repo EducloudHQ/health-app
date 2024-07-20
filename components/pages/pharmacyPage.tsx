@@ -18,6 +18,7 @@ export default function PharmacyPage() {
   const router = useRouter();
   const [filter, setFilter] = useState(false);
   const [lng, setLng] = useState(0);
+  const [isLoading, setIsLoaing] = useState(true)
   const [pharmacies, setPharmacies]: any = useState([]);
   const [nearPharms, setNearPharms]: any = useState([]);
   const bucketName = "https://amplify-d2yrv03l6hwvow-ma-amplifyteamdrivebucket28-ts944jk2zo40.s3.amazonaws.com/pictures"
@@ -27,12 +28,15 @@ export default function PharmacyPage() {
     getAllPharmacies();
   }, []);
   const getAllPharmacies = async () => {
+    setIsLoaing(true)
     try {
       const pharms = await client.models.Pharmacy.list();
       console.log(pharms.data)
       setPharmacies(pharms.data)
+      setIsLoaing(false)
     } catch (err) {
       console.log(err);
+      setIsLoaing(false)
     }
   };
 
@@ -122,10 +126,15 @@ export default function PharmacyPage() {
                 <h2 className="font-manrope font-bold text-2xl md:text-4xl text-black  mb-10 md:mb-14 max-lg:text-center">
                   Near by Phamacies
                 </h2>
+
+                {isLoading?
+                  <div className="flex items-center justify-center w-[100%] text-blue-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 24 24"><g><rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".14"/><rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".29" transform="rotate(30 12 12)"/><rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".43" transform="rotate(60 12 12)"/><rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".57" transform="rotate(90 12 12)"/><rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".71" transform="rotate(120 12 12)"/><rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".86" transform="rotate(150 12 12)"/><rect width="2" height="5" x="11" y="1" fill="currentColor" transform="rotate(180 12 12)"/><animateTransform attributeName="transform" calcMode="discrete" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;30 12 12;60 12 12;90 12 12;120 12 12;150 12 12;180 12 12;210 12 12;240 12 12;270 12 12;300 12 12;330 12 12;360 12 12"/></g></svg>
+                  </div>
+                :
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                   
-                  {
-                    pharmacies.length>0?pharmacies.map((pharmacy: any)=><Link
+                    {pharmacies.length>0?pharmacies.map((pharmacy: any)=><Link
                     href={`/pharmacy/${pharmacy.id}`}
                     className="mx-auto sm:mr-0 group cursor-pointer lg:mx-auto bg-white transition-all duration-500"
                   >
@@ -149,113 +158,9 @@ export default function PharmacyPage() {
                   </Link>): <div>Ooops no near by pharmacies</div>
                   }
 
-                </div>
+                </div>}
               </div>
             </section>
-            {/* <section className="pb-14 md:pb-24">
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <h2 className="font-manrope font-bold text-2xl md:text-4xl text-black  mb-10 md:mb-14 max-lg:text-center">
-                  Other Pharmacies
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                  <Link
-                    href="/shop"
-                    className="mx-auto sm:mr-0 group cursor-pointer lg:mx-auto bg-white transition-all duration-500"
-                  >
-                    <div className="">
-                      <img
-                        src="https://pagedone.io/asset/uploads/1701157844.png"
-                        alt=" image"
-                        className="w-full aspect-square"
-                      />
-                    </div>
-                    <div className="mt-5">
-                      <div className="flex items-center justify-between">
-                        <h6 className="font-semibold text-xl leading-8 text-black transition-all duration-500 group-hover:text-indigo-600">
-                          Pharmacy name
-                        </h6>
-                      </div>
-                      <p className="mt-2 font-normal text-sm leading-6 text-gray-500">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Eligendi, quas eaque!
-                      </p>
-                    </div>
-                  </Link>
-
-                  <Link
-                    href="/shop"
-                    className="mx-auto sm:ml-0 group cursor-pointer lg:mx-auto bg-white transition-all duration-500"
-                  >
-                    <div className="">
-                      <img
-                        src="https://pagedone.io/asset/uploads/1700726174.png"
-                        alt=" image"
-                        className="w-full aspect-square"
-                      />
-                    </div>
-                    <div className="mt-5">
-                      <div className="flex items-center justify-between">
-                        <h6 className="font-semibold text-xl leading-8 text-black transition-all duration-500 group-hover:text-indigo-600">
-                          Pharmacy name
-                        </h6>
-                      </div>
-                      <p className="mt-2 font-normal text-sm leading-6 text-gray-500">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Eligendi, quas eaque!
-                      </p>
-                    </div>
-                  </Link>
-
-                  <Link
-                    href="/shop"
-                    className="mx-auto sm:mr-0 group cursor-pointer lg:mx-auto bg-white transition-all duration-500"
-                  >
-                    <div className="">
-                      <img
-                        src="https://pagedone.io/asset/uploads/1700726191.png"
-                        alt="image"
-                        className="w-full aspect-square"
-                      />
-                    </div>
-                    <div className="mt-5">
-                      <div className="flex items-center justify-between">
-                        <h6 className="font-semibold text-xl leading-8 text-black transition-all duration-500 group-hover:text-indigo-600">
-                          Pharmacy name
-                        </h6>
-                      </div>
-                      <p className="mt-2 font-normal text-sm leading-6 text-gray-500">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Eligendi, quas eaque!
-                      </p>
-                    </div>
-                  </Link>
-
-                  <Link
-                    href="/shop"
-                    className="mx-auto sm:ml-0 group cursor-pointer lg:mx-auto bg-white transition-all duration-500"
-                  >
-                    <div className="">
-                      <img
-                        src="https://pagedone.io/asset/uploads/1700726207.png"
-                        alt="image"
-                        className="w-full aspect-square"
-                      />
-                    </div>
-                    <div className="mt-5">
-                      <div className="flex items-center justify-between">
-                        <h6 className="font-semibold text-xl leading-8 text-black transition-all duration-500 group-hover:text-indigo-600">
-                          Pharmacy name
-                        </h6>
-                      </div>
-                      <p className="mt-2 font-normal text-sm leading-6 text-gray-500">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Eligendi, quas eaque!
-                      </p>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-            </section> */}
           </div>
         </div>
       </div>
