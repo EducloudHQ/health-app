@@ -9,7 +9,6 @@ interface CardProps {
 }
 
 const FeatureCard = ({ cardData }: CardProps) => {
-  // console.log(cardData)
   const { title, description, image, url } = cardData;
   return (
     <div className="min-w-[25%] hover:cursor-pointer w-[280px] mx-h-[400px] h-[400px]  shadow shadow-lg rounded-b-xl group relative">

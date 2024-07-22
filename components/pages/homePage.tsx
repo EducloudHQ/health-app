@@ -6,7 +6,6 @@ import FeatureCard from "@/components/featurCard";
 import { useEffect } from "react";
 import { generateClient } from "aws-amplify/data";
 import { type Schema } from "@/amplify/data/resource";
-import Card from "../card";
 import Navbar from "../common-components/navbar";
 import Footer from "../footer";
 

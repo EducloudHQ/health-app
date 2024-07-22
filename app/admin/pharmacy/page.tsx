@@ -42,19 +42,6 @@ export default function CreatePharmacy() {
     setFile(event.target.files[0]);
   };
 
-  const saveImage = async () => {
-    console.log(file)
-    await uploadData({
-      path: `pictures/${file.name}`,
-      data: file,
-  }).result
-
-  const dUrl = await getUrl({
-    path: `pictures/${file.name}`
-  })
-  console.log(dUrl.url.href)
-  setUrl(dUrl.url.href)
-  }
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -120,49 +107,6 @@ export default function CreatePharmacy() {
   return (
     <>
     <div>
-    {/* <form onSubmit={handleSubmit(onSubmitlocation)}>
-      <div>
-        <label htmlFor="name">Name</label>
-        <input id="name" {...register("name", { required: true })} />
-      </div>
-      <div>
-        <label htmlFor="location">Location</label>
-        <PlacesAutocomplete
-          value={address}
-          onChange={setAddress}
-          onSelect={handleSelect}
-        >
-          {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-            <div>
-              <input
-                {...getInputProps({
-                  name: "location",
-                  id: "location",
-                  placeholder: "Search Places ..."
-                })}
-              />
-              <div>
-                {loading && <div>Loading...</div>}
-                {suggestions.map((suggestion) => {
-                  const style = suggestion.active
-                    ? { backgroundColor: "#a8dadc", cursor: "pointer" }
-                    : { backgroundColor: "#ffffff", cursor: "pointer" };
-                  return (
-                    <div
-                      {...getSuggestionItemProps(suggestion, { style })}
-                      key={suggestion.placeId}
-                    >
-                      {suggestion.description}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </PlacesAutocomplete>
-      </div>
-      <button type="submit">Submit</button>
-    </form> */}
     </div>
       <div className="bg-white w-full h-16 md:h-20 flex justify-between mb-4 px-4 md:px-7 font-bold">
         <div className="h-full flex items-center">

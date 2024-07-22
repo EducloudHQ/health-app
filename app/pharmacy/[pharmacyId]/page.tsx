@@ -6,7 +6,6 @@ import Link from "next/link";
 import { generateClient } from "aws-amplify/data";
 import { type Schema } from "../../../amplify/data/resource";
 import {  useEffect, useState } from "react";
-import { data } from "@/amplify/datads/resource";
 
 export default function Pharmacy({params}: any) {
   const client = generateClient<Schema>();
