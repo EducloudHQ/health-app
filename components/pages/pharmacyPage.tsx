@@ -21,6 +21,9 @@ export default function PharmacyPage() {
   const [isLoading, setIsLoaing] = useState(true)
   const [pharmacies, setPharmacies]: any = useState([]);
   const [nearPharms, setNearPharms]: any = useState([]);
+
+  const [location, setLocation]: any = useState();
+  const [error, setError]: any = useState();
   const bucketName = "https://amplify-d2yrv03l6hwvow-ma-amplifyteamdrivebucket28-ts944jk2zo40.s3.amazonaws.com/pictures"
   
 
@@ -28,67 +31,46 @@ export default function PharmacyPage() {
     getAllPharmacies();
   }, []);
   const getAllPharmacies = async () => {
-    setIsLoaing(true)
-    try {
-      const pharms = await client.models.Pharmacy.list();
-      console.log(pharms.data)
-      setPharmacies(pharms.data)
-      setIsLoaing(false)
-    } catch (err) {
-      console.log(err);
-      setIsLoaing(false)
-    }
-  };
 
-  // const filterNearPharmacies = (event: FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   setFilter(true);
-  //   const formData = new FormData(event.currentTarget);
-  //   console.log(formData);
-  //   const lt = parseFloat(formData.get("lt")?.toString()!);
-  //   const lg = parseFloat(formData.get("lg")?.toString()!);
-  //   console.log("filtering>>>", lt, lg);
-  //   // 4.171662, 9.285218    4.159330, 9.276489    4.161479, 9.292015  result 0.002149  0.015526
-  //   if (pharmacies) {
-  //     pharmacies.map((p: any) => {
-  //       if (p.location?.lat - lt > 0.005 && p.location?.long - lg > 0.04) {
-  //         console.log(p.location.lat, p.location?.long);
-  //         setNearPharms([...nearPharms, p]);
-  //       } else {
-  //         console.log("not near", p.location.lat, p.location.long);
-  //       }
-  //     });
-  //   }
-  // };
+    setIsLoaing(true)
+    let latitude, longitude
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+           latitude = position.coords.latitude;
+           longitude = position.coords.longitude;
+          console.log(position)
+          try {
+            const response = await fetch(`/api?longitude=${longitude}&latitude=${latitude}`);
+              const data = await response.json();
+            setPharmacies(data.Results)
+            setIsLoaing(false)
+          } catch (err) {
+            console.log(err);
+            setIsLoaing(false)
+          }
+          setLocation({ latitude, longitude });
+        },
+        (err) => {
+          setError(err.message);
+        }
+      );
+    } else {
+      setError('Geolocation is not supported by this browser.');
+    }
+    
+  };
 
   const handleSignOut = async () => {
     await signOut();
     router.replace("/signin");
   };
+
   return (
     <>
-      <Script id="show-banner">
-        {`
-                    let clat;
-                    let clng;
-                    if(navigator.geolocation){
-                        navigator.geolocation.getCurrentPosition((position)=>{
-                            clat = position.coords.latitude;
-                            clng = position.coords.longitude;
-                            let inputF = document.getElementById("id1");
-                            inputF.value = clat;
-
-                            let inputF2 = document.getElementById("id2");
-                            inputF2.value = clng;
-                        })
-                    }
-               `}
-      </Script>
       <NavBar />
       <div className="-mt-14 pt-4">
         <div className="h-full w-full">
-        <input type="text" value="" id="id1" className="hidden"/>
-          <input type="text" value="" id="id2" className="hidden"/>
           <div className="">
             <div className="px-4 my-auto flex w-full h-[65vh] md:h-[70vh] -mt-4 bg-blue-100/40">
               <div className="mt-32 md:mt-40 mx-auto  text-center">
@@ -134,28 +116,30 @@ export default function PharmacyPage() {
                 :
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                   
-                    {pharmacies.length>0?pharmacies.map((pharmacy: any)=><Link
-                    href={`/pharmacy/${pharmacy.id}`}
+                    {pharmacies.length>0?pharmacies.map((pharmacy: any)=><div
+                    
                     className="mx-auto sm:mr-0 group cursor-pointer lg:mx-auto bg-white transition-all duration-500"
                   >
                     <div className="">
                       <img
-                      src={`${bucketName}/${pharmacy.imageUrl}`}
+                      src={`/pharm.webp`}
                         alt=" image"
                         className="w-full aspect-square"
                       />
                     </div>
                     <div className="mt-5">
-                      <div className="flex items-center justify-between">
+                      <div className="items-center">
                         <h6 className="font-semibold text-xl leading-8 text-black transition-all duration-500 group-hover:text-indigo-600">
-                          {pharmacy.name}
+                          {pharmacy.Place.Label}
                         </h6>
+                        <p><span className="text-sm text-gray-300">Country: {pharmacy.Places?.Country}</span></p><p><span className="text-sm text-gray-300">Municipality: {pharmacy.Places?.Municipality}</span></p>
+                        <p><span className="text-sm text-gray-500">Distance from your current location: {Math.round((pharmacy.Distance/1000)*10)/10}km</span></p>
                       </div>
                       <p className="mt-2 font-normal text-sm leading-6 text-gray-500">
                         {pharmacy.description}
                       </p>
                     </div>
-                  </Link>): <div>Ooops no near by pharmacies</div>
+                  </div>): <div>Ooops no near by pharmacies</div>
                   }
 
                 </div>}

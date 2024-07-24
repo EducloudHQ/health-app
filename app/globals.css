@@ -41,6 +41,10 @@ body {
   overflow-x: hidden;
 }
 
+#map {
+  height: 50%;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(

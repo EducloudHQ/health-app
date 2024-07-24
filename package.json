@@ -10,12 +10,17 @@
   },
   "dependencies": {
     "@aws-amplify/adapter-nextjs": "^1.2.1",
+    "@aws-amplify/geo": "^3.0.38",
     "@aws-amplify/interactions": "^6.0.33",
     "@aws-amplify/ui-react": "^6.1.12",
+    "@aws-amplify/ui-react-geo": "^2.0.17",
     "@aws-sdk/client-bedrock-runtime": "^3.588.0",
+    "@aws-sdk/client-location": "^3.616.0",
     "@react-google-maps/api": "^2.19.3",
-    "aws-amplify": "^6.2.0",
+    "aws-amplify": "^6.4.1",
     "location-picker": "^1.1.1",
+    "maplibre-gl": "^2.4.0",
+    "maplibre-gl-js-amplify": "^4.0.0",
     "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18",
@@ -25,6 +30,7 @@
   "devDependencies": {
     "@aws-amplify/backend": "^1.0.0",
     "@aws-amplify/backend-cli": "^1.0.1",
+    "@types/mapbox__mapbox-gl-draw": "^1.4.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -36,4 +42,3 @@
     "typescript": "^5.3.2"
   }
 }
-
