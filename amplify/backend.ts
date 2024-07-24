@@ -69,7 +69,7 @@ const myIndex = new CfnPlaceIndex(geoStack, "PlaceIndex", {
   dataSourceConfiguration: {
     intendedUse: "SingleUse",
   },
-  indexName: "myPlaceIndex",
+  indexName: "healthAppPlaceIndex",
   pricingPlan: "RequestBasedUsage",
   tags: [
     {
