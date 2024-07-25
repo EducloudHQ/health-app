@@ -43,6 +43,7 @@ export default function PharmacyPage() {
           try {
             const response = await fetch(`/api?longitude=${longitude}&latitude=${latitude}`);
               const data = await response.json();
+              console.log("Map Data>>>",data)
             setPharmacies(data.Results)
             setIsLoaing(false)
           } catch (err) {
