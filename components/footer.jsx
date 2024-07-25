@@ -38,11 +38,6 @@ const Footer = () => {
                 Shop
               </a>
             </li>
-            <li>
-              <a href="#" className="hover:underline">
-                Chat with AI
-              </a>
-            </li>
           </ul>
         </div>
         <hr className="my-6 border-white sm:mx-auto  lg:my-8" />
