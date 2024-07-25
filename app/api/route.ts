@@ -5,8 +5,8 @@ export async function GET(req: NextRequest, res: any) {
   const client = new LocationClient({
     region: "us-east-1",
     credentials: {
-      accessKeyId: secret('NEXT_AWS_ACCESS_KEY').toString(),
-      secretAccessKey: secret('NEXT_AWS_SECCRET_KEY').toString()
+      accessKeyId: process.env.NEXT_AWS_ACCESS_KEY!,
+      secretAccessKey: process.env.NEXT_AWS_SECCRET_KEY!
     }
   });
 
@@ -15,7 +15,7 @@ export async function GET(req: NextRequest, res: any) {
   const latitude = parseFloat(req.url.split('?')[1].split('&')[1].split('=')[1])
 
   const command = new SearchPlaceIndexForTextCommand({
-    IndexName: secret('NEXT_INDEX_NAME').toString(),
+    IndexName: process.env.NEXT_INDEX_NAME,
     Text: place,
     MaxResults: 5,
     BiasPosition: [longitude, latitude],
