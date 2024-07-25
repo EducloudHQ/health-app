@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { LocationClient, SearchPlaceIndexForTextCommand } from "@aws-sdk/client-location";
 import { secret } from "@aws-amplify/backend";
 export async function GET(req: NextRequest, res: any) {
+  console.log(process.env.NEXT_AWS_ACCESS_KEY)
+  console.log(process.env.NEXT_AWS_SECCRET_KEY)
+  console.log(process.env.NEXT_INDEX_NAME)
+
   const client = new LocationClient({
     region: "us-east-1",
     credentials: {
