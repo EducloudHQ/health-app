@@ -29,7 +29,7 @@ const geoStack = backend.createStack("geo-stack");
 
 // create a location services map
 const map = new CfnMap(geoStack, "Map", {
-  mapName: "myMap",
+  mapName: "healthMap",
   description: "Map",
   configuration: {
     style: "VectorEsriNavigation",
@@ -38,7 +38,7 @@ const map = new CfnMap(geoStack, "Map", {
   tags: [
     {
       key: "name",
-      value: "myMap",
+      value: "healthMap",
     },
   ],
 });
@@ -69,12 +69,12 @@ const myIndex = new CfnPlaceIndex(geoStack, "PlaceIndex", {
   dataSourceConfiguration: {
     intendedUse: "SingleUse",
   },
-  indexName: "healthAppPlaceIndex",
+  indexName: "healthAppIndex",
   pricingPlan: "RequestBasedUsage",
   tags: [
     {
       key: "name",
-      value: "myPlaceIndex",
+      value: "healthAppIndex",
     },
   ],
 });
