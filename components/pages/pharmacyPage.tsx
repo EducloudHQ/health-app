@@ -32,6 +32,9 @@ export default function PharmacyPage() {
   }, []);
   const getAllPharmacies = async () => {
 
+  console.log(process.env.NEXT_AWS_ACCESS_KEY)
+  console.log(process.env.NEXT_AWS_SECCRET_KEY)
+  console.log(process.env.NEXT_INDEX_NAME)
     setIsLoaing(true)
     let latitude, longitude
     if (navigator.geolocation) {
