@@ -116,7 +116,7 @@ export default function PharmacyPage() {
                 :
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                   
-                    {pharmacies.length>0?pharmacies.map((pharmacy: any)=><div
+                    {pharmacies?.length>0?pharmacies.map((pharmacy: any)=><div
                     
                     className="mx-auto sm:mr-0 group cursor-pointer lg:mx-auto bg-white transition-all duration-500"
                   >
