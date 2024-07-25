@@ -2,14 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { LocationClient, SearchPlaceIndexForTextCommand } from "@aws-sdk/client-location";
 import { secret } from "@aws-amplify/backend";
 export async function GET(req: NextRequest, res: any) {
-  console.log(secret("AWS_ACCESS_KEY"))
-  console.log(secret("AWS_ACCESS_KEY").resolve.toString())
-  console.log(secret("AWS_ACCESS_KEY"))
   const client = new LocationClient({
     region: "us-east-1",
     credentials: {
-      accessKeyId: secret("AWS_ACCESS_KEY").resolve.toString(),
-      secretAccessKey: secret("AWS_SECCRET_KEY").resolve.toString()
+      accessKeyId: process.env.NEXT_AWS_ACCESS_KEY!,
+      secretAccessKey: process.env.NEXT_AWS_SECCRET_KEY!
     }
   });
 
@@ -18,7 +15,7 @@ export async function GET(req: NextRequest, res: any) {
   const latitude = parseFloat(req.url.split('?')[1].split('&')[1].split('=')[1])
 
   const command = new SearchPlaceIndexForTextCommand({
-    IndexName: secret("INDEX_NAME").resolve.toString(),
+    IndexName: process.env.NEXT_INDEX_NAME,
     Text: place,
     MaxResults: 5,
     BiasPosition: [longitude, latitude],
