@@ -107,7 +107,7 @@ export default function PharmacyPage() {
             <section className="pb-10 md:pb-16">
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <h2 className="font-manrope font-bold text-2xl md:text-4xl text-black  mb-10 md:mb-14 max-lg:text-center">
-                  Near by Phamacies
+                  Nearby Phamacies
                 </h2>
 
                 {isLoading?
