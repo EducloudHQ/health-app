@@ -128,7 +128,7 @@ export default function PharmacyPage() {
                       <img
                       src={`/pharm.webp`}
                         alt=" image"
-                        className="w-full aspect-square"
+                        className="w-full aspect-square rounded"
                       />
                     </div>
                     <div className="mt-5">

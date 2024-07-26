@@ -6,6 +6,10 @@ import Link from "next/link";
 import { generateClient } from "aws-amplify/data";
 import { type Schema } from "../../../amplify/data/resource";
 import {  useEffect, useState } from "react";
+import { createMap } from 'maplibre-gl-js-amplify';
+import 'maplibre-gl/dist/maplibre-gl.css';
+import { drawPoints } from 'maplibre-gl-js-amplify';
+
 
 export default function Pharmacy({params}: any) {
   const client = generateClient<Schema>();
@@ -15,8 +19,45 @@ export default function Pharmacy({params}: any) {
 
 
   useEffect(() => {
-    getAllDrugs();
+
+  initializeMap();
+    // getAllDrugs();
   }, []);
+
+  async function initializeMap() {
+    const map = await createMap({
+      container: 'map', // An HTML Element or HTML element ID to render the map in https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/
+      center: [-123.1187, 49.2819], // [Longitude, Latitude]
+      zoom: 11
+    });
+
+    map.on('load', function () {
+      drawPoints(
+        'mySourceName', // Arbitrary source name
+        [
+          {
+            coordinates: [-122.483696, 37.833818], // [Longitude, Latitude]
+            title: 'Golden Gate Bridge',
+            address: 'A suspension bridge spanning the Golden Gate'
+          },
+          {
+            coordinates: [-122.477, 37.8105] // [Longitude, Latitude]
+          }
+        ], // An array of coordinate data, an array of Feature data, or an array of [NamedLocations](https://github.com/aws-amplify/maplibre-gl-js-amplify/blob/main/src/types.ts#L8)
+        map,
+        {
+          showCluster: true,
+          unclusteredOptions: {
+            showMarkerPopup: true
+          },
+          clusterOptions: {
+            showCount: true
+          }
+        }
+      );
+    });
+  }
+  
   const getAllDrugs = async () => {
     try {
       const drugs1 = await client.models.Drug.list({
@@ -37,10 +78,12 @@ export default function Pharmacy({params}: any) {
     }
   };
   return (
-    <>
+    <div className="h-[100%] w-[100%]">
       <Navbar />
       <script type="text/javascript" src="/script.js"></script>
-
+      <div className="h-[50vh]" id="map"></div>
+      
+{/* 
       <div className="w-full flex justify-center mt-14 px-4 sm:px-6 lg:px-8">
         <div className="bg-blue-50 min-h-52 w-full max-w-screen-xl flex justify-center text-center items-center rounded-md">
           <h2 className="font-manrope text-2xl font-bold text-black px-4 min-[400px]:text-4xl">
@@ -81,9 +124,9 @@ export default function Pharmacy({params}: any) {
             </div>
           </div>
         </section>
-      </div>
+      </div> */}
       <Footer />
-    </>
+    </div>
   );
 }
 
