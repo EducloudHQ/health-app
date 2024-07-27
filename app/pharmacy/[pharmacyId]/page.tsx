@@ -9,14 +9,20 @@ import {  useEffect, useState } from "react";
 import { createMap } from 'maplibre-gl-js-amplify';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { drawPoints } from 'maplibre-gl-js-amplify';
+import { useSearchParams } from "next/navigation";
 
 
 export default function Pharmacy({params}: any) {
+  const searchParams = useSearchParams();
   const client = generateClient<Schema>();
   const [drugs, setDrugs]: any = useState([]);
   const [pharmacy, setPharmacy]: any = useState({})
   const bucketName = "https://amplify-d2yrv03l6hwvow-ma-amplifyteamdrivebucket28-ts944jk2zo40.s3.amazonaws.com/pictures"
-
+  
+  const pharmlng = parseFloat(searchParams.get('pharmlng')!);
+  const pharmlat = parseFloat(searchParams.get('pharmlat')!);
+  const loclng = parseFloat(searchParams.get('loclng')!);
+  const loclat = parseFloat(searchParams.get('loclat')!);
 
   useEffect(() => {
 
@@ -36,12 +42,12 @@ export default function Pharmacy({params}: any) {
         'mySourceName', // Arbitrary source name
         [
           {
-            coordinates: [-122.483696, 37.833818], // [Longitude, Latitude]
+            coordinates: [loclng, loclat], // [Longitude, Latitude]
             title: 'Golden Gate Bridge',
             address: 'A suspension bridge spanning the Golden Gate'
           },
           {
-            coordinates: [-122.477, 37.8105] // [Longitude, Latitude]
+            coordinates: [pharmlng, pharmlat] // [Longitude, Latitude]
           }
         ], // An array of coordinate data, an array of Feature data, or an array of [NamedLocations](https://github.com/aws-amplify/maplibre-gl-js-amplify/blob/main/src/types.ts#L8)
         map,
@@ -58,25 +64,6 @@ export default function Pharmacy({params}: any) {
     });
   }
   
-  const getAllDrugs = async () => {
-    try {
-      const drugs1 = await client.models.Drug.list({
-        filter:{
-          pharmacyId: {
-            eq: params.pharmacyId
-          }
-        }
-      })
-      setDrugs(drugs1.data)
-      
-      const pharmRes = await client.models.Pharmacy.get({
-        id: params.pharmacyId,
-      });
-      setPharmacy(pharmRes.data)
-    } catch (err) {
-      console.log(err);
-    }
-  };
   return (
     <div className="h-[100%] w-[100%]">
       <Navbar />
