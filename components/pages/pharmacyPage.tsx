@@ -128,7 +128,7 @@ export default function PharmacyPage() {
                       <Link
                         href={{
                           pathname: `/pharmacy/${pharmacy.Place.Label.split(' ')[0]}`,
-                          query: { pharmlng: pharmacy.Place.Geometry.Point[0], pharmlat: pharmacy.Place.Geometry.Point[1], loclng: location.lng, loclat: location.lat }, // Pass additional data here
+                          query: {pharmName: pharmacy.Place.Label, pharmlng: pharmacy.Place.Geometry.Point[0], pharmlat: pharmacy.Place.Geometry.Point[1], loclng: location.lng, loclat: location.lat }, // Pass additional data here
                         }}
                       >
                         <div className="">
