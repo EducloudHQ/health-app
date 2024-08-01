@@ -24,17 +24,11 @@ export default function PharmacyPage() {
 
   const [location, setLocation]: any = useState();
   const [error, setError]: any = useState();
-  const bucketName = "https://amplify-d2yrv03l6hwvow-ma-amplifyteamdrivebucket28-ts944jk2zo40.s3.amazonaws.com/pictures"
-
 
   useEffect(() => {
-    getAllPharmacies();
+    getNearbyPharmacies();
   }, []);
-  const getAllPharmacies = async () => {
-
-    console.log(process.env.NEXT_AWS_ACCESS_KEY)
-    console.log(process.env.NEXT_AWS_SECCRET_KEY)
-    console.log(process.env.NEXT_INDEX_NAME)
+  const getNearbyPharmacies = async () => {
     setIsLoaing(true)
     let latitude, longitude
     if (navigator.geolocation) {
@@ -62,12 +56,6 @@ export default function PharmacyPage() {
     } else {
       setError('Geolocation is not supported by this browser.');
     }
-
-  };
-
-  const handleSignOut = async () => {
-    await signOut();
-    router.replace("/signin");
   };
 
   return (

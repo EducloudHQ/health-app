@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { LocationClient, SearchPlaceIndexForTextCommand } from "@aws-sdk/client-location";
-import { secret } from "@aws-amplify/backend";
 export async function GET(req: NextRequest, res: any) {
   console.log(process.env.NEXT_PUBLIC_AWS_ACCESS_KEY)
   console.log(process.env.NEXT_PUBLIC_AWS_SECCRET_KEY)

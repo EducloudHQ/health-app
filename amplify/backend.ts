@@ -1,28 +1,16 @@
 import { defineBackend } from "@aws-amplify/backend";
 import { auth } from "./auth/resource.js";
-// import { CfnMap } from "aws-cdk-lib/aws-location";
-import { Stack } from "aws-cdk-lib/core";
-import { data, MODEL_ID, generateHaikuFunction } from "./data/resource.js";
+import { data } from "./data/resource.js";
 import { Effect, PolicyStatement, Policy } from "aws-cdk-lib/aws-iam";
-import { sayHello } from "./functions/bedrock-lambda-fn/resource";
 import { storage } from "./storage/resource.js"
 import { CfnMap, CfnPlaceIndex } from "aws-cdk-lib/aws-location";
 
 export const backend = defineBackend({
   auth,
   data,
-  storage,
-  generateHaikuFunction,
-  sayHello,
+  storage
 });
 
-backend.generateHaikuFunction.resources.lambda.addToRolePolicy(
-  new PolicyStatement({
-    effect: Effect.ALLOW,
-    actions: ["bedrock:*"],
-    resources: [`arn:aws:bedrock:*::foundation-model/${MODEL_ID}`],
-  })
-);
 
 
 const geoStack = backend.createStack("geo-stack");
